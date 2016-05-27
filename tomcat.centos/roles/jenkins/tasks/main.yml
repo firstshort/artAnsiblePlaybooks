@@ -1,0 +1,24 @@
+---
+## Download and install JENKINS for Centos/RHEL version 6
+#- name: Download JENKINS Repo - Centos/RHEL 6
+#  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6-8.noarch.rpm
+#  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
+#
+#- name: Install JENKINS Repo - Centos/RHEL 6
+#  command: rpm -ivh /tmp/epel-release-6-8.noarch.rpm creates=/etc/yum.repos.d/epel.repo
+#  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
+#
+# Download and install JENKINS for Centos/RHEL version 7
+- name: Download JENKINS Repo - Centos/RHEL 7
+  tags: jenkins
+  get_url: url=http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo dest=/etc/yum.repos.d/jenkins.repo
+  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
+
+- name: Install JENKINS Repo - Centos/RHEL 7
+  tags: jenkins
+  command: rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
+  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
+
+- name: install the latest version of Jenkins
+  tags: jenkins
+  yum: name=jenkins state=latest

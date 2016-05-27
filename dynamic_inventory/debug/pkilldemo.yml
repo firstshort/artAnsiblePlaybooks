@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+
+  tasks:
+  - name: generate random process string
+    action: shell openssl rand 15 | base64
+    register: process_string
+
+  - name: warn user
+    pause: prompt="About to kill processes matching {{ process_string.stdout }} with signal SIGIO. Hit Return to continue or Ctrl-C then a to abort"
+
+  - name: show bad effects of pkill -f
+    action: shell pkill -IO -f  || true

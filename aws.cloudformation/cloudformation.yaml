@@ -35,7 +35,9 @@
       state=present
       region=us-west-1 
       disable_rollback=true
-      template=files/cloudformation-example.json
+      template=files/stackupdate.walkthrough.json
+#      template=files/cloudformation-example.json
+
     args:
       template_parameters:
         KeyName: ansible_ec2
